@@ -1,0 +1,156 @@
+resource "aws_vpc" "production_vpc" {
+    cidr_block = "${var.aws_vpc}"
+    enable_dns_hostnames = true
+    
+    tags = {
+      Name = "Production-VPC"
+    }
+}
+
+resource "aws_subnet" "public-subnet-1" {
+    cidr_block = "${var.public_1_subnet_cidr}"
+    vpc_id     = "${aws_vpc.production_vpc.id}"
+    availability_zone = "ap-south-1a"
+
+    tags = {
+      Name = "public-subnet-1"
+    }    
+
+}
+
+resource "aws_subnet" "public-subnet-2" {
+    cidr_block = "${var.public_2_subnet_cidr}"
+    vpc_id     = "${aws_vpc.production_vpc.id}"
+    availability_zone = "ap-south-1b"
+
+    tags = {
+      Name = "public-subnet-2"
+    }   
+}
+
+resource "aws_subnet" "public-subnet-3" {
+    cidr_block = "${var.public_3_subnet_cidr}"
+    vpc_id     = "${aws_vpc.production_vpc.id}"
+    availability_zone = "ap-south-1c"
+
+    tags = {
+      Name = "public-subnet-3"
+    }   
+}
+
+resource "aws_subnet" "private_subnet-1" {
+    cidr_block = "${var.private_1_subnet_cidr}"
+    vpc_id     = "${aws_vpc.production_vpc.id}"
+    availability_zone = "ap-south-1a"
+
+    tags = {
+      Name = "private-subnet-1"
+    }
+}
+
+resource "aws_subnet" "private_subnet-2" {
+    cidr_block = "${var.private_2_subnet_cidr}"
+    vpc_id     = "${aws_vpc.production_vpc.id}"
+    availability_zone = "ap-south-1b"
+
+    tags = {
+      Name = "private-subnet-2"
+    }
+}
+
+resource "aws_subnet" "private_subnet-3" {
+    cidr_block = "${var.private_3_subnet_cidr}"
+    vpc_id     = "${aws_vpc.production_vpc.id}"
+    availability_zone = "ap-south-1c"
+
+    tags = {
+      Name = "private-subnet-3"
+    }
+}
+
+resource "aws_route_table" "public-route-table" {
+    vpc_id = "${aws_vpc.production_vpc.id}"
+
+    tags = {
+      Name = "Public-route-table"
+    }
+}
+
+resource "aws_route_table" "private-route-table" {
+    vpc_id = "${aws_vpc.production_vpc.id}"
+
+    tags = {
+      Name = "Private-route-table"
+    }
+}
+
+resource "aws_route_table_association" "public_subnet-1" {
+  route_table_id = "${aws_route_table.public-route-table.id}"
+  subnet_id = "${aws_subnet.public-subnet-1.id}"
+}
+
+
+resource "aws_route_table_association" "public_subnet-2" {
+  route_table_id = "${aws_route_table.public-route-table.id}"
+  subnet_id = "${aws_subnet.public-subnet-2.id}"
+}
+
+resource "aws_route_table_association" "public_subnet-3" {
+  route_table_id = "${aws_route_table.public-route-table.id}"
+  subnet_id = "${aws_subnet.public-subnet-3.id}"
+}
+
+
+resource "aws_route_table_association" "private_subnet-1" {
+  route_table_id = "${aws_route_table.private-route-table.id}"
+  subnet_id = "${aws_subnet.private_subnet-1.id}"
+}
+
+resource "aws_route_table_association" "private_subnet-2" {
+  route_table_id = "${aws_route_table.private-route-table.id}"
+  subnet_id = "${aws_subnet.private_subnet-2.id}"
+}
+
+resource "aws_route_table_association" "private_subnet-3" {
+  route_table_id = "${aws_route_table.private-route-table.id}"
+  subnet_id = "${aws_subnet.private_subnet-3.id}"
+}
+
+resource "aws_eip" "elastic-ip-for-nat-gw" {
+  domain = "vpc"
+  associate_with_private_ip = "10.0.0.5"
+
+  tags = {
+    Name = "Production_EIP"
+  }
+}
+
+resource "aws_nat_gateway" "nat-gw" {
+  allocation_id = "${aws_eip.elastic-ip-for-nat-gw.id}"
+  subnet_id = "${aws_subnet.public-subnet-1.id}"
+  tags = {
+    Name = "Public_NAT"
+  }
+  depends_on = [ aws_eip.elastic-ip-for-nat-gw ]
+}
+
+resource "aws_route" "nat_gateway_route" {
+  route_table_id = "${aws_route_table.private-route-table.id}"
+  nat_gateway_id = "${aws_nat_gateway.nat-gw.id}"
+  destination_cidr_block = "0.0.0.0/0"
+}
+
+
+resource "aws_internet_gateway" "production-igw" {
+  vpc_id = "${aws_vpc.production_vpc.id}"
+
+  tags = {
+    Name = "Prouction_IGW"
+  }
+}
+
+resource "aws_route" "public_gateway_route" {
+  route_table_id = "${aws_route_table.public-route-table.id}"
+  gateway_id = "${aws_internet_gateway.production-igw.id}"
+  destination_cidr_block = "0.0.0.0/0"
+}
