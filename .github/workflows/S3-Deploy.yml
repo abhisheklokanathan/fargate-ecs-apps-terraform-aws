@@ -74,4 +74,9 @@ jobs:
         run: terraform plan
 
       - name: Terraform Apply
-        run: terraform apply -auto-approve
+        run: |
+          terraform import aws_iam_policy.lambda_s3_read arn:aws:iam::123456789012:policy/LambdaS3ReadAccess
+          terraform import aws_iam_policy.lambda_update_permission arn:aws:iam::123456789012:policy/LambdaUpdatePermission
+          terraform import aws_cloudfront_origin_access_control.oac E123456789ABC
+
+          terraform destroy -auto-approve
