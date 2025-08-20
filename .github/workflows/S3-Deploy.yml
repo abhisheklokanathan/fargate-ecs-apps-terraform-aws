@@ -48,7 +48,7 @@ jobs:
     defaults:
       run:
         shell: bash
-        #working-directory: terraform-ecs-fargate-ci-cd
+        working-directory: TF-bucket
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
