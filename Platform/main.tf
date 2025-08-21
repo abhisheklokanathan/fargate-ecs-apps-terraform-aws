@@ -188,6 +188,24 @@ resource "aws_alb_target_group" "ecs_app_target_group" {
   }
 }
 
+resource "aws_ecs_service" "ecs_service" {
+  name            = var.ecs_service_name
+  task_definition = var.ecs_service_name
+  desired_count   = var.desired_task_number
+  cluster         = data.terraform_remote_state.platform_demo.outputs.aws_ecs_cluster
+  launch_type     = "FARGATE"
+
+  network_configuration {
+    # subnets           = [data.terraform_remote_state.platform.outputs.ecs_public_subnets]
+    subnets = [
+            data.terraform_remote_state.infrastructure.outputs.public_1_subnet_cidr,
+            data.terraform_remote_state.infrastructure.outputs.public_2_subnet_cidr,
+            data.terraform_remote_state.infrastructure.outputs.public_3_subnet_cidr,
+          ]
+    security_groups   = [aws_security_group.app_security_group.id]
+    assign_public_ip  = true
+  }
+
 #resource "aws_alb_target_group" "ecs_default_target_group" {
   #  name = "${var.ecs_cluster_name}-TG"
  #  port = 80
