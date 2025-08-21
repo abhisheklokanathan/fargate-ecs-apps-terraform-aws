@@ -153,9 +153,9 @@ resource "aws_security_group" "ecs_alb_security_group" {
 
 resource "aws_alb_listener" "ecs_alb_https_listener" {
   load_balancer_arn = aws_alb.ecs_cluster_alb.arn
-  port              = 443
-  protocol          = "HTTPS"
-  ssl_policy        = "ELBSecurityPolicy-TLS-1-2-2017-01"
+  port              = 80
+  protocol          = "HTTP"
+  #ssl_policy        = "ELBSecurityPolicy-TLS-1-2-2017-01"
   #certificate_arn   = aws_acm_certificate.studysite_cert.arn
 
   default_action {
