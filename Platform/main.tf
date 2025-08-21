@@ -163,7 +163,7 @@ resource "aws_alb_listener" "ecs_alb_https_listener" {
     target_group_arn = aws_alb_target_group.ecs_default_target_group.arn
   }
   #depends_on = [ aws_acm_certificate_validation.studysite_validation, aws_alb_target_group.ecs_default_target_group ]
-   depends_on = [ aws_alb_target_group.ecs_default_target_group ]
+  # depends_on = [ aws_alb_target_group.ecs_default_target_group ]
 }
 
 #resource "aws_alb_target_group" "ecs_default_target_group" {
