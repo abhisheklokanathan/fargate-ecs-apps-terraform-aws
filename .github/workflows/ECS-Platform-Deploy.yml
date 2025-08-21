@@ -1,4 +1,4 @@
-name: AWS-Static-Website-Pipeline
+name: AWS-ECS-Application-Platform
 
 on:
   workflow_dispatch:
