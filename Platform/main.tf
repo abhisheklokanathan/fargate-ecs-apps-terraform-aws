@@ -160,7 +160,8 @@ resource "aws_alb_listener" "ecs_alb_https_listener" {
 
   default_action {
     type             = "forward"
-    target_group_arn = aws_alb_target_group.ecs_default_target_group.arn
+    target_group_arn = aws_alb_target_group.ecs_app_target_group.arn
+  }
   }
   #depends_on = [ aws_acm_certificate_validation.studysite_validation, aws_alb_target_group.ecs_default_target_group ]
   # depends_on = [ aws_alb_target_group.ecs_default_target_group ]
@@ -188,17 +189,17 @@ resource "aws_alb_target_group" "ecs_app_target_group" {
   }
 }
 
-resource "aws_alb_target_group" "ecs_default_target_group" {
-    name = "${var.ecs_cluster_name}-TG"
-   port = 80
-   protocol = "HTTP"
-   vpc_id = data.terraform_remote_state.infrastructure.outputs.vpc_id
+#resource "aws_alb_target_group" "ecs_default_target_group" {
+  #  name = "${var.ecs_cluster_name}-TG"
+ #  port = 80
+ #  protocol = "HTTP"
+ #  vpc_id = data.terraform_remote_state.infrastructure.outputs.vpc_id
 
-    tags = {
-     Name = "${var.ecs_cluster_name}-TG"
-    }
-    #depends_on = [ aws_route53_record.studysite_validation ]
-}
+#    tags = {
+#     Name = "${var.ecs_cluster_name}-TG"
+#    }
+#    #depends_on = [ aws_route53_record.studysite_validation ]
+#}
 
 resource "aws_iam_role" "ecs_cluster_role" {
         name = "${var.ecs_cluster_name}-IAM-ROLE"
