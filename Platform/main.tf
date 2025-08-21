@@ -2,9 +2,9 @@ data "terraform_remote_state" "platform" {
   backend = "s3"
 
   config = {
-    key     = var.remote_state_key_PR
-    bucket  = var.remote_state_bucket
-    region  = var.region
+    key     = PROD/terraform.tf.state
+    bucket  = databucketfortfecs
+    region  = us-east-1
   }
 }
 
@@ -12,9 +12,9 @@ data "terraform_remote_state" "platform_demo" {
   backend = "s3"
 
   config = {
-    key     = var.remote_state_key
-    bucket  = var.remote_state_bucket
-    region  = var.region
+    key     = demo/terraform.tf.state
+    bucket  = databucketfortfecs
+    region  = us-east-1
   }
 }
 resource "aws_ecs_cluster" "production_fargate_cluster" {
