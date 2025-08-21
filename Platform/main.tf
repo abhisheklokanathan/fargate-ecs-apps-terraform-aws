@@ -167,8 +167,8 @@ resource "aws_alb_listener" "ecs_alb_https_listener" {
 }
 
 resource "aws_alb_target_group" "ecs_app_target_group" {
-  name        = "${var.ecs_service_name}-TG"
-  port        = var.docker_container_port
+  name        = "${var.ecs_cluster_name}-TG"
+  port        = 80
   protocol    = "HTTP"
   vpc_id      = data.terraform_remote_state.infrastructure.outputs.vpc_id
   target_type = "ip"
