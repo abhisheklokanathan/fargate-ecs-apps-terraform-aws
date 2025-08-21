@@ -9,7 +9,7 @@ variable "remote_state_key" {
     default = "PROD/terraform.tf.state"
 }
 variable "ecs_cluster_name" {
-    default = "prod-1-demo"
+    default = "Production-Fargate-Cluster"
 }
 variable "internet_cidr_blocks" {
     default = ["0.0.0.0/0"]
