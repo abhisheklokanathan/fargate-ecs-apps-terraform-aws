@@ -174,7 +174,7 @@ resource "aws_alb_target_group" "ecs_default_target_group" {
     tags = {
       Name = "${var.ecs_cluster_name}-TG"
     }
-    depends_on = [ aws_route53_record.studysite_validation ]
+    #depends_on = [ aws_route53_record.studysite_validation ]
 }
 
 resource "aws_iam_role" "ecs_cluster_role" {
