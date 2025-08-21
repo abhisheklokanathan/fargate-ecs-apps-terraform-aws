@@ -1,4 +1,4 @@
-name: AWS-ECS-Application-Platform
+name: Destroy-AWS-ECS-Application-Platform
 
 on:
   workflow_dispatch:
