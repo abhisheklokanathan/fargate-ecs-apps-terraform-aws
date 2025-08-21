@@ -6,10 +6,10 @@ terraform {
     }
   }
   backend "s3" {
-    bucket = "databucketfortfs3"
+    bucket = "databucketfortfecs"
     key    = "demo/terraform.tf.state"
-    region = "ap-south-1"
-    dynamodb_table = "terraform_state"
+    region = "us-east-1"
+    dynamodb_table = "terraform_state_ecs"
     encrypt = true
   }
 }
@@ -17,5 +17,5 @@ terraform {
 #Configure the AWS Provider
 provider "aws" {
   alias = "south"
-  region = "ap-south-1"
+  region = "ap-east-1"
 }
