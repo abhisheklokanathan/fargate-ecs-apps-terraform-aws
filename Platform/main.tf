@@ -191,13 +191,13 @@ resource "aws_alb_target_group" "ecs_app_target_group" {
 resource "aws_security_group" "app_security_group" {
   name        = "${var.ecs_service_name}-SG"
   description = "Security group for springbootapp to communicate in and out"
-  vpc_id      = data.terraform_remote_state.platform.outputs.vpc_id
+  vpc_id      = data.terraform_remote_state.infrastructure.outputs.vpc_id
 
   ingress {
     from_port   = 8080
     protocol    = "TCP"
     to_port     = 8080
-    cidr_blocks = [data.terraform_remote_state.platform.outputs.vpc_cidr_block]
+    cidr_blocks = [data.terraform_remote_state.infrastructure.outputs.vpc_cidr_block]
   }
 
   egress {
