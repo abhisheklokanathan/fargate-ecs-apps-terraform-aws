@@ -205,6 +205,7 @@ resource "aws_ecs_service" "ecs_service" {
     security_groups   = [aws_security_group.app_security_group.id]
     assign_public_ip  = true
   }
+}
 
 #resource "aws_alb_target_group" "ecs_default_target_group" {
   #  name = "${var.ecs_cluster_name}-TG"
