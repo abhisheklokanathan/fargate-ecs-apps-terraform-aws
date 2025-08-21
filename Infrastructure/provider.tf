@@ -6,10 +6,10 @@ terraform {
     }
   }
   backend "s3" {
-    bucket = "databucketfortfs3"
+    bucket = "databucketfortfecs"
     key    = "PROD/terraform.tf.state"
     region = "ap-south-1"
-    dynamodb_table = "terraform_state"
+    dynamodb_table = "terraform_state_ecs_prod"
     encrypt = true
   }
 }
