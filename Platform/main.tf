@@ -156,13 +156,14 @@ resource "aws_alb_listener" "ecs_alb_https_listener" {
   port              = 443
   protocol          = "HTTPS"
   ssl_policy        = "ELBSecurityPolicy-TLS-1-2-2017-01"
-  certificate_arn   = aws_acm_certificate.studysite_cert.arn
+  #certificate_arn   = aws_acm_certificate.studysite_cert.arn
 
   default_action {
     type             = "forward"
     target_group_arn = aws_alb_target_group.ecs_default_target_group.arn
   }
-  depends_on = [ aws_acm_certificate_validation.studysite_validation, aws_alb_target_group.ecs_default_target_group ]
+  #depends_on = [ aws_acm_certificate_validation.studysite_validation, aws_alb_target_group.ecs_default_target_group ]
+   depends_on = [ aws_alb_target_group.ecs_default_target_group ]
 }
 
 resource "aws_alb_target_group" "ecs_default_target_group" {
