@@ -17,7 +17,7 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: Platform
+        working-directory: 3-application/infrastructure
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
