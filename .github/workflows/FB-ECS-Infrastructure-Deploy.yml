@@ -1,4 +1,4 @@
-name: FB-AWS-ECS-Infrastructure-Platform
+name: AWS-ECS-Infrastructure
 
 on:
   workflow_dispatch:
