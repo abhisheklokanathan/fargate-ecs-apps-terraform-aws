@@ -1,4 +1,4 @@
-name: Destroy-AWS-ECS-Infrastructure-Platform
+name: Destroy-AWS-ECS-Infrastructure
 
 on:
   workflow_dispatch:
