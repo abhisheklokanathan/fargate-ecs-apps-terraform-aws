@@ -14,7 +14,7 @@ elif [ "$1" = "test" ];then
     find ../target/ -type f \( -name "*.jar" -not -name "*sources.jar" \) -exec cp {} ../infrastructure/$SERVICE_NAME.jar \;
 elif [ "$1" = "dockerize" ];then
     find ../target/ -type f \( -name "*.jar" -not -name "*sources.jar" \) -exec cp {} ../infrastructure/$SERVICE_NAME.jar \;
-    aws ecr create-repository --repository-name ${SERVICE_NAME:?} --region ${REGION} || true
+    #aws ecr create-repository --repository-name ${SERVICE_NAME:?} --region ${REGION} || true
     aws ecr get-login-password \
     --region ${REGION} \
     | docker login \
