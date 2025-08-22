@@ -1,14 +1,14 @@
-data "aws_acm_certificate" "static_site_cert" {
-  domain   = "*.studysite.shop"
-  types    = ["AMAZON_ISSUED"]
-  statuses = ["ISSUED"]
-  most_recent = true
-  provider = aws.east # Make sure this is your us-east-1 provider
-}
+#data "aws_acm_certificate" "static_site_cert" {
+#  domain   = "*.studysite.shop"
+#  types    = ["AMAZON_ISSUED"]
+#  statuses = ["ISSUED"]
+#  most_recent = true
+#  provider = aws.east # Make sure this is your us-east-1 provider
+#}
 
-data "aws_route53_zone" "main" {
-  name = "studysite.shop"
-}
+#data "aws_route53_zone" "main" {
+#  name = "studysite.shop"
+#}
 
 
 data "aws_caller_identity" "current" {}
