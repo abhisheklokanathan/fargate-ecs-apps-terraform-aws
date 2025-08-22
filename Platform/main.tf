@@ -174,7 +174,7 @@ resource "aws_alb_listener" "ecs_alb_https_listener" {
 #    vpc_id = data.terraform_remote_state.infrastructure.outputs.vpc_id
 
 #    tags = {
-      Name = "${var.ecs_cluster_name}-TG"
+#      Name = "${var.ecs_cluster_name}-TG"
 #    }
 #    depends_on = [ aws_route53_record.studysite_validation ]
 #}
