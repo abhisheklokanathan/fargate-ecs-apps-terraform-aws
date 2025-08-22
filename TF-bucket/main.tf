@@ -155,7 +155,7 @@ resource "aws_cloudfront_distribution" "cdn" {
   is_ipv6_enabled     = true
   comment             = "CloudFront for static.studysite.shop"
 
-  aliases = ["static.studysite.shop"]
+  aliases = ["s3.studysite.shop"]
 
   origin {
     domain_name              = aws_s3_bucket.bucket.bucket_regional_domain_name
