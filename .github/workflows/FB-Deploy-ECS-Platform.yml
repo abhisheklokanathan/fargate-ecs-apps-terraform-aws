@@ -1,4 +1,4 @@
-name: FB-AWS-ECS-Platform-Deploy
+name: AWS-ECS-Platform-Deploy
 
 on:
   workflow_dispatch:
