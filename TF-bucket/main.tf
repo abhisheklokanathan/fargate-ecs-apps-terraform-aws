@@ -201,7 +201,7 @@ resource "aws_cloudfront_distribution" "cdn" {
 
 resource "aws_route53_record" "cdn_alias" {
   zone_id = data.aws_route53_zone.main.zone_id
-  name    = "static" # This makes it static.studysite.shop
+  name    = "s3" # This makes it static.studysite.shop
   type    = "A"
 
   alias {
