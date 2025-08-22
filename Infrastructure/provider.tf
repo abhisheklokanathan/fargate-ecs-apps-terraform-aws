@@ -6,7 +6,7 @@ terraform {
     }
   }
   backend "s3" {
-    bucket = "databucketfortfs3"
+    bucket = "databucketfortfecs"
     key    = "PROD/terraform.tf.state"
     region = "us-east-1"
     dynamodb_table = "terraform_state"
