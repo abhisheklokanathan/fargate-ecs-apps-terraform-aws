@@ -3,7 +3,7 @@ variable "region" {
 }
 
 variable "remote_state_bucket" {
-    default = "databucketfortfs3"
+    default = "databucketfortfecs"
 }
 variable "remote_state_key" {
     default = "PROD/terraform.tf.state"
