@@ -1,7 +1,9 @@
 name: FB-AWS-ECS-Platform-Deploy
 
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - feature/farget-app 
 
 permissions:
   id-token: write
