@@ -168,7 +168,8 @@ resource "aws_alb_listener_rule" "ecs_alb_listener_rule" {
 
   condition {
     host_header {
-      values = ["${lower(var.ecs_service_name)}.${data.terraform_remote_state.platform_demo.outputs.ecs_domain_name}"]
+      #values = ["${lower(var.ecs_service_name)}.${data.terraform_remote_state.platform_demo.outputs.ecs_domain_name}"]
+      values = ["${data.terraform_remote_state.platform_demo.outputs.ecs_domain_name}"]
     }
   }
 }

@@ -9,7 +9,7 @@ terraform {
     bucket = "databucketfortfecs"
     key    = "demo/terraform.tf.state"
     region = "us-east-1"
-    dynamodb_table = "terraform_state_ecs"
+    dynamodb_table = "terraform_state"
     encrypt = true
   }
 }

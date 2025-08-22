@@ -1,6 +1,6 @@
 # remote state
 remote_state_key = "demo/terraform.tf.state"
-remote_state_bucket = "databucketfortfs3"
+remote_state_bucket = "databucketfortfecs"
 remote_state_key_PR = "PROD/terraform.tf.state"
 # service variables
 ecs_service_name = "springbootapp"

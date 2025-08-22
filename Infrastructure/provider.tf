@@ -9,7 +9,7 @@ terraform {
     bucket = "databucketfortfecs"
     key    = "PROD/terraform.tf.state"
     region = "us-east-1"
-    dynamodb_table = "terraform_state_ecs_prod"
+    dynamodb_table = "terraform_state"
     encrypt = true
   }
 }
@@ -17,5 +17,5 @@ terraform {
 # Configure the AWS Provider
 provider "aws" {
   alias = "south"
-  region = "ap-east-1"
+  region = "us-east-1"
 }
