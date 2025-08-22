@@ -1,3 +1,16 @@
+data "aws_acm_certificate" "static_site_cert" {
+  domain   = "static.studysite.shop"
+  types    = ["AMAZON_ISSUED"]
+  statuses = ["ISSUED"]
+  most_recent = true
+  provider = aws.east # Make sure this is your us-east-1 provider
+}
+
+data "aws_route53_zone" "main" {
+  name = "studysite.shop"
+}
+
+
 data "aws_caller_identity" "current" {}
 
 # IAM Role for Lambdas
@@ -138,9 +151,11 @@ resource "aws_cloudfront_origin_access_control" "oac" {
 
 # CloudFront Distribution
 resource "aws_cloudfront_distribution" "cdn" {
-  enabled         = true
-  is_ipv6_enabled = true
-  comment         = "CloudFront distribution for ${aws_s3_bucket.bucket.bucket}"
+  enabled             = true
+  is_ipv6_enabled     = true
+  comment             = "CloudFront for static.studysite.shop"
+
+  aliases = ["static.studysite.shop"]
 
   origin {
     domain_name              = aws_s3_bucket.bucket.bucket_regional_domain_name
@@ -157,7 +172,6 @@ resource "aws_cloudfront_distribution" "cdn" {
 
     forwarded_values {
       query_string = false
-
       cookies {
         forward = "none"
       }
@@ -177,10 +191,24 @@ resource "aws_cloudfront_distribution" "cdn" {
   }
 
   viewer_certificate {
-    cloudfront_default_certificate = true
+    acm_certificate_arn      = data.aws_acm_certificate.static_site_cert.arn
+    ssl_support_method       = "sni-only"
+    minimum_protocol_version = "TLSv1.2_2021"
   }
 
   depends_on = [aws_lambda_function.versioned_uri_rewriter]
+}
+
+resource "aws_route53_record" "cdn_alias" {
+  zone_id = data.aws_route53_zone.main.zone_id
+  name    = "static" # This makes it static.studysite.shop
+  type    = "A"
+
+  alias {
+    name                   = aws_cloudfront_distribution.cdn.domain_name
+    zone_id                = aws_cloudfront_distribution.cdn.hosted_zone_id
+    evaluate_target_health = false
+  }
 }
 
 # S3 Bucket Policy for CloudFront OAC
@@ -207,4 +235,5 @@ resource "aws_s3_bucket_policy" "cloudfront_access" {
       }
     ]
   })
+depends_on = [aws_cloudfront_distribution.cdn]
 }
