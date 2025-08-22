@@ -8,7 +8,7 @@ permissions:
 
 jobs:
   terraform_plan:
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/feature/farget-app'
     runs-on: ubuntu-latest
     environment: dev
     defaults:
