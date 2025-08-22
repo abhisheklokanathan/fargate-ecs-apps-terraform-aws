@@ -1,5 +1,5 @@
 data "aws_acm_certificate" "static_site_cert" {
-  domain   = "static.studysite.shop"
+  domain   = "*.studysite.shop"
   types    = ["AMAZON_ISSUED"]
   statuses = ["ISSUED"]
   most_recent = true
