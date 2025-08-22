@@ -26,7 +26,7 @@ elif [ "$1" = "dockerize" ];then
     docker tag ${SERVICE_NAME}:${SERVICE_TAG} ${ECR_REPO_URL}:${SERVICE_TAG}
     docker push ${ECR_REPO_URL}:${SERVICE_TAG}
 elif [ "$1" = "plan" ];then
-    cd infrastructure
+    #cd infrastructure
     terraform init -backend-config="app-prod.config"
     terraform plan -var-file="production.tfvars" -var "docker_image_url=$ECR_REPO_URL:$SERVICE_TAG"
 elif [ "$1" = "deploy" ];then
