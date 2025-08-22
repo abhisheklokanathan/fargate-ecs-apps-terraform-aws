@@ -1,6 +1,6 @@
 #!/bin/sh
 
-REGION="ap-south-1"
+REGION="us-east-1"
 SERVICE_NAME="springbootapp"
 SERVICE_TAG="v1"
 AWS_ACCOUNT_ID="761018887005"
