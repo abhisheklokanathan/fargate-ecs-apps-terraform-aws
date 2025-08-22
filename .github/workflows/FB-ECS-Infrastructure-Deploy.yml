@@ -1,8 +1,9 @@
 name: FB-AWS-ECS-Infrastructure-Platform
 
 on:
-  workflow_dispatch:
-
+  push:
+    branches:
+      - feature/farget-app 
 permissions:
   id-token: write
   contents: read
