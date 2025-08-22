@@ -9,7 +9,7 @@ terraform {
     bucket = "databucketfortfecs"
     key    = "APP/springbootapp.tfstate"
     region = "us-east-1"
-    dynamodb_table = "terraform_state"
+    dynamodb_table = "terraform_state_ecs"
     encrypt = true
   }
 }
