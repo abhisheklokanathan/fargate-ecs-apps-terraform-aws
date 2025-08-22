@@ -35,3 +35,9 @@ jobs:
 
       - name: Terraform Init
         run: sh deploy.sh build
+        
+      - name: Terraform Init
+        run: sh deploy.sh plan        
+
+      - name: Terraform Init
+        run: sh deploy.sh dockerize
